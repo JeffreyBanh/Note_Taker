@@ -7,7 +7,7 @@ var PORT = process.env.PORT || 3001;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
-const fileContent = JSON.parse(fs.readFileSync("./db/db.json"))
+let fileContent = JSON.parse(fs.readFileSync("./db/db.json"))
 
 
 app.get("/", function (req, res) {
@@ -30,9 +30,9 @@ app.get("/api/notes", (req, res) => {
 
 // post new notes
 app.post("/api/notes", (req, res) => {
-    const notes = fileContent;
+    const notes = JSON.parse(fs.readFileSync("./db/db.json"));
     const newNote = req.body;
-    newNote.id = uuid.v4();
+    newNote.id = uuid();
     notes.push(newNote);
     fs.writeFileSync("./db/db.json", JSON.stringify(notes))
     res.json(notes);
@@ -40,7 +40,7 @@ app.post("/api/notes", (req, res) => {
 
 //deletes notes
 app.delete("/api/notes/:id", (req, res) => {
-    const notes = fileContent;
+    const notes = JSON.parse(fs.readFileSync("./db/db.json"));
     const Non_Deleted_Notes = notes.filter((removeNote) => removeNote.id !== req.params.id)
     fs.writeFileSync("./db/db.json", JSON.stringify(Non_Deleted_Notes));
     res.json(Non_Deleted_Notes);
