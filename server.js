@@ -12,6 +12,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
+
+
 //Setting routes for APIs
 //This gets notes saved and joins it in db.json
 app.get("/api/notes", (req, res) => {
@@ -51,3 +53,5 @@ app.get("/notes", function (req, res) {
 app.listen(PORT, function () {
     console.log("App listening on PORT: " + PORT);
 });
+
+//sdfsdfsdfsdf
