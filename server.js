@@ -32,7 +32,7 @@ app.get("/api/notes", (req, res) => {
 app.post("/api/notes", (req, res) => {
     const notes = fileContent;
     const newNote = req.body;
-    newNote.id = uuid();
+    newNote.id = uuid.v4();
     notes.push(newNote);
     fs.writeFileSync("./db/db.json", JSON.stringify(notes))
     res.json(notes);
@@ -41,7 +41,7 @@ app.post("/api/notes", (req, res) => {
 //deletes notes
 app.delete("/api/notes/:id", (req, res) => {
     const notes = fileContent;
-    const Non_Deleted_Notes = notes.filter((rmvNote) => rmvNote.id !== req.params.id)
+    const Non_Deleted_Notes = notes.filter((removeNote) => removeNote.id !== req.params.id)
     fs.writeFileSync("./db/db.json", JSON.stringify(Non_Deleted_Notes));
     res.json(Non_Deleted_Notes);
 })
